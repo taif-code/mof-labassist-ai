@@ -278,9 +278,22 @@ window.addEventListener("error", e => {
   console.error("JS error:", e.message);
 });
 
-// 10) --- Init -----------------------------------------------------------------
-document.addEventListener("DOMContentLoaded", () => {
-  applyLang();
-  // Default: show Chat tab
-  fadeSwitch("chat");
-});
+ // 10) --- Init -----------------------------------------------------------------
+ document.addEventListener("DOMContentLoaded", () => {
+   applyLang();
+   // Default: show Chat tab
+   fadeSwitch("chat");
+
+   // Bind UI buttons
+   document.getElementById("btnTabChat").addEventListener("click", () => showTab("chat"));
+   document.getElementById("btnTabForward").addEventListener("click", () => showTab("forward"));
+   document.getElementById("btnTabInverse").addEventListener("click", () => showTab("inverse"));
+
+   document.getElementById("btnSendChat").addEventListener("click", sendChat);
+   document.getElementById("btnForwardSearch").addEventListener("click", runForward);
+   document.getElementById("btnInversePredict").addEventListener("click", runInverse);
+
+   document.getElementById("chatInput").addEventListener("keydown", (e) => {
+     if (e.key === "Enter") sendChat();
+   });
+ });
