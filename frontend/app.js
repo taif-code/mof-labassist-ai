@@ -15,7 +15,7 @@ const API = cached
   ? cached
   : (location.hostname.endsWith("onrender.com") ? RENDER_API : "http://localhost:8000/api");
 
-console.log("✅ Using API:", API);
+console.log("Using API:", API);
 
 
 // 2) --- Language state --------------------------------------------------------
