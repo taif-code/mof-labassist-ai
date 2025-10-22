@@ -8,10 +8,31 @@
  * ========================================================================= */
 
 // 1) --- API base selection (EDIT HERE if you want a default) -----------------
-// ✅ Backend API (Render)
-const RENDER_API = "https://mof-labassist-ai.onrender.com/api";
-const API = RENDER_API;
-console.log("Using API:", API);
+ // ✅ Backend API (Render)
+ const RENDER_API = "https://mof-labassist-ai.onrender.com/api";
+ const cached = localStorage.getItem("API");
+ const API = cached
+   ? cached
+   : (location.hostname.endsWith("onrender.com") ? RENDER_API : "http://localhost:8000/api");
+ console.log("🌐 Using API:", API);
+
+ async function checkConnection() {
+   try {
+     const res = await fetch(`${API}/health`);
+     if (res.ok) {
+       console.log("🔗 Connected successfully to Render backend");
+       document.getElementById("connection-status").innerText = "🔗 Connected to backend";
+       document.getElementById("connection-status").style.color = "limegreen";
+     } else {
+       throw new Error("Failed health check");
+     }
+   } catch (e) {
+     console.error("❌ Backend not reachable", e);
+     document.getElementById("connection-status").innerText = "❌ Disconnected";
+     document.getElementById("connection-status").style.color = "red";
+   }
+ }
+ checkConnection();
 
 // 2) --- Language state --------------------------------------------------------
 const Lang = {

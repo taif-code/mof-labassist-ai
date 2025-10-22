@@ -1,3 +1,4 @@
+#api.py
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 from typing import Dict, Any, List, Optional
@@ -65,6 +66,7 @@ class ChatResponse(BaseModel):
 # ======== Routes ========
 @api.post("/forward", response_model=ForwardResponse)
 def forward(req: ForwardRequest):
+    print("➡️ Request:", req.dict())
     mats = search_by_application(req.application)
     cands: List[Dict[str, Any]] = []
     for m in mats:
@@ -95,6 +97,7 @@ def forward(req: ForwardRequest):
 
 @api.post("/inverse", response_model=InverseResponse)
 def inverse(req: InverseRequest):
+    print("➡️ Request:", req.dict())
     m = get_material_by_name(req.material.name)
     apps = [
         AppSuggestion(application="VOC_removal", fit_score=0.79, uncertainty=0.18,
@@ -109,6 +112,7 @@ def inverse(req: InverseRequest):
 
 @api.post("/chat", response_model=ChatResponse)
 def chat(req: ChatRequest):
+    print("➡️ Request:", req.dict())
     msg = req.message.lower()
     if "co2" in msg:
         return ChatResponse(reply="Forward tip: set application=CO2_capture at 298 K, 1 bar; try UiO-66-NH2 as a baseline.")

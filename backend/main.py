@@ -21,3 +21,7 @@ def root():
     }
 
 app.include_router(api)
+
+@app.get("/api/health")
+def health():
+    return {"ok": True, "msg": "healthy"}
