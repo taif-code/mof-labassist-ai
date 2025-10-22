@@ -10,13 +10,8 @@
 // 1) --- API base selection (EDIT HERE if you want a default) -----------------
 // ✅ Backend API (Render)
 const RENDER_API = "https://mof-labassist-ai.onrender.com/api";
-const cached = localStorage.getItem("API");
-const API = cached
-  ? cached
-  : (location.hostname.endsWith("onrender.com") ? RENDER_API : "http://localhost:8000/api");
-
+const API = RENDER_API;
 console.log("Using API:", API);
-
 
 // 2) --- Language state --------------------------------------------------------
 const Lang = {
