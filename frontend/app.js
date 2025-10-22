@@ -1,4 +1,9 @@
-const API = (localStorage.getItem("API") || "http://localhost:8000/api");
+const RENDER_API = "https://mof-labassist-ai-1.onrender.com/api";
+const cached = localStorage.getItem("API");
+const API = cached
+  ? cached
+  : (location.hostname.endsWith("onrender.com") ? RENDER_API : "http://localhost:8000/api");
+console.log("Using API:", API);
 
 // Translation dictionaries
 const translations = {
